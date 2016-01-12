@@ -4,7 +4,10 @@ This JavaScript library is a concatenation of two parts, described below. These 
 can be used to help you make your Intel XDK Cordova app work on the Windows 8.x platform.
 This library is not guaranteed to resolve all problems, but will help with many.
 
-## JavaScript Dynamic Content shim for Windows 8.x Store Apps
+Reference the `xdk-win8x-compat.js` file near the beginning of your app; 
+ideally, before any other scripts are run.
+
+## JavaScript Dynamic Content Shim for Windows 8.x Store Apps
 
 Enables JavaScript libraries that manipulate the DOM to work in Windows 8.x 
 and Windows Phone 8.x webview apps. See <https://github.com/MSOpenTech/winstore-jscompat> 
@@ -35,20 +38,14 @@ An app that includes such a library might return the following error:
 
 Properties such as innerHTML and outerHTML are filtered in the Windows 8.x webviews
 in order to avoid the common security issues that can result from the unsafe handling 
-of untrusted data.
-
-In order to unblock these setbacks, Microsoft Open Technologies (MS Open Tech) released the
+of untrusted data. In order to unblock these setbacks, Microsoft Open Technologies 
+(MS Open Tech) released the
 [JavaScript Dynamic Content shim for Windows Store apps](https://github.com/MSOpenTech/winstore-jscompat). 
 This shim relaxes the manner in which checks are performed.
 
-### Instructions
-
-Reference the `xdk-win8x-compat.js` file near the beginning of your app; 
-ideally, before any other scripts are run.
-
-> **NOTE:** You do not need to use the dynamic content shim part of this file with Windows 10 apps.
-
 Use of this shim may have a minor impact on your app's performance.
+
+> **NOTE:** You the dynamic content shim part of this file is not required for Windows 10 apps.
 
 ## Windows 8.x Supplemental `alert()` Function
 
