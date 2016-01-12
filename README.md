@@ -1,20 +1,68 @@
-JavaScript Dynamic Content shim for Windows Store apps
-=====
-Use all your favorite JavaScript libraries to create Windows Store apps on Windows 8
+# `xdk-win8x-compat.js`
 
-Developers can use a wide variety of JavaScript APIs to leverage the power and broad capabilities of Windows in Windows Store apps. In order to prevent unwanted access to the [Windows Runtime](http://msdn.microsoft.com/en-us/library/windows/desktop/br211377.aspx), [restrictions and measures](http://msdn.microsoft.com/en-us/library/windows/apps/hh849625.aspx) restrictions and measures are set in place so that malicious script will not compromise an app's integrity. In some cases, however, this security model may prevent some JavaScript libraries to run as intended. A handful of popular, third-party libraries happen to use code which is flagged as unsafe, and therefore will not work as expected in Windows Store apps. These libraries include but are not limited to [AngularJS](https://angularjs.org/), [Ember.js](http://emberjs.com/), [KnockoutJS](http://knockoutjs.com/).
+This JavaScript library is a concatenation of two parts, described below. These two parts 
+can be used to help you make your Intel XDK Cordova app work on the Windows 8.x platform.
+This library is not guaranteed to resolve all problems, but will help with many.
 
-Today, running a Windows Store app using AngularJS in Visual Studio might return the following error: "JavaScript runtime error: Unable to add dynamic content. A script attempted to inject dynamic content, or elements previously modified dynamically, that might be unsafe."
+## JavaScript Dynamic Content shim for Windows 8.x Store Apps
 
-![](https://raw.githubusercontent.com/MSOpenTech/winstore-jscompat/master/error.PNG?token=3019602__eyJzY29wZSI6IlJhd0Jsb2I6TVNPcGVuVGVjaC93aW5zdG9yZS1qc2NvbXBhdC9tYXN0ZXIvZXJyb3IuUE5HIiwiZXhwaXJlcyI6MTQwNjU3OTYyOX0%3D--101970399d1c4e94bbe251e71e78f8be6af6d7ba)
+Enables JavaScript libraries that manipulate the DOM to work in Windows 8.x 
+and Windows Phone 8.x webview apps. See <https://github.com/MSOpenTech/winstore-jscompat> 
+for the original version of this shim. It has been modified and adapted for use with
+apps built by the Intel XDK build system, but should work with Cordova CLI and
+PhoneGap CLI built apps, as well.
 
-Properties such as innerHTML and outerHTML are filtered in order to avoid the common security issues that can result from the unsafe handling of untrusted data.
+In order to prevent unwanted access to the 
+[Windows Runtime](http://msdn.microsoft.com/en-us/library/windows/desktop/br211377.aspx) 
+a set of [restrictions and measures](http://msdn.microsoft.com/en-us/library/windows/apps/hh849625.aspx)
+exist in Windows 8.x webviews to prevent malicious scripts from compromising an app's integrity. 
+In some cases this security model prevents some JavaScript libraries to run as intended. A handful of 
+popular, third-party libraries happen to use code which is flagged as unsafe and, therefore, do not 
+work as expected in Windows 8.x webview apps. These libraries include but are not limited to:
 
-In order to unblock these setbacks, Microsoft Open Technologies (MS Open Tech) has released the JavaScript Dynamic Content shim for Windows Store apps. This mitigation relaxes the manner in which checks are performed, yet still achieves the fundamental goal set by the security model.
+* [jQuery](https://jquery.com/)
+* [AngularJS](https://angularjs.org/)
+* [Ember.js](http://emberjs.com/)
+* [KnockoutJS](http://knockoutjs.com/).
 
-# Instructions
-Simply reference the `winstore-jscompat.js` file towards the beginning of your app, before any other scripts are run.
+An app that includes such a library might return the following error: 
 
-**Note:** You do not need to include this file for Windows 10 apps.
+> "JavaScript runtime error: Unable to add dynamic content. 
+> A script attempted to inject dynamic content, or elements 
+> previously modified dynamically, that might be unsafe."
 
-Please note that there may be a minor impact on your app's performance, the extent of which depends upon the specific usage, timing, and frequency of the three property calls listed above.
+![](error.PNG)
+
+Properties such as innerHTML and outerHTML are filtered in the Windows 8.x webviews
+in order to avoid the common security issues that can result from the unsafe handling 
+of untrusted data.
+
+In order to unblock these setbacks, Microsoft Open Technologies (MS Open Tech) released the
+[JavaScript Dynamic Content shim for Windows Store apps](https://github.com/MSOpenTech/winstore-jscompat). 
+This shim relaxes the manner in which checks are performed.
+
+### Instructions
+
+Reference the `xdk-win8x-compat.js` file near the beginning of your app; 
+ideally, before any other scripts are run.
+
+> **NOTE:** You do not need to use the dynamic content shim part of this file with Windows 10 apps.
+
+Use of this shim may have a minor impact on your app's performance.
+
+## Windows 8.x Supplemental `alert()` Function
+
+The Windows 8.x webview does not support the standard `alert()` method. Thus, a replacement
+function is needed to supplement for the lack of `window.alert()` via the native (to Windows)
+`Windows.UI.Popups.MessageDialog()` function. That function is normally used as shown:
+```JavaScript
+(new Windows.UI.Popups.MessageDialog("Content", "Title")).showAsync().done() ;
+```
+Note that the this replacement `alert()` function:
+
+- Is not a blocking function like the familiar `window.alert()` function.
+- This implementation queues up multiple alerts to simulate the `alert()` blocking behavior.
+
+The replacement `alert()` function in this script will only be defined if a Windows webview
+is detected. It will not attempt to replace the `alert()` on other webviews (such as Android,
+Crosswalk and iOS). In those instances, the native `alert()` function will be used, as-is.
