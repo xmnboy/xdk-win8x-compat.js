@@ -178,7 +178,11 @@ if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a 
     cleansePropertySetter("innerHTML", function (propertyDescriptor, target, elements) {
         empty(target);
         for (var i = 0, len = elements.length; i < len; i++) {
-            target.appendChild(elements[i]);
+            if (elements[i].nodeName == 'BODY') {
+                for (var j = 0, clen = elements[i].childNodes.length; j < clen; j++) {
+                    target.appendChild(elements[eix].childNodes[0]);
+                }
+            }
         }
     });
     cleansePropertySetter("outerHTML", function (propertyDescriptor, target, elements) {
