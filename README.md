@@ -34,7 +34,7 @@ An app that includes such a library might return the following error:
 > A script attempted to inject dynamic content, or elements 
 > previously modified dynamically, that might be unsafe."
 
-![](error.PNG)
+![](error.png)
 
 Properties such as innerHTML and outerHTML are filtered in the Windows 8.x webviews
 in order to avoid the common security issues that can result from the unsafe handling 
