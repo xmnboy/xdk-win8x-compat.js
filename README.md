@@ -47,6 +47,8 @@ Use of this shim may have a minor impact on your app's performance.
 
 > **NOTE:** You the dynamic content shim part of this file is not required for Windows 10 apps.
 
+See also: [Running Cordova Apps on Windows and Windows Phone 8.1 using Ionic, AngularJS, and other Frameworks](http://blogs.msdn.com/b/msdn_answers/archive/2015/02/10/running-cordova-apps-on-windows-and-windows-phone-8-1-using-ionic-angularjs-and-other-frameworks.aspx)
+
 ## Windows 8.x Supplemental `alert()` Function
 
 The Windows 8.x webview does not support the standard `alert()` method. Thus, a replacement
