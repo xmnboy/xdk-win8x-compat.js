@@ -8,7 +8,7 @@
  */
 
 /*jslint browser:true, devel:true, white:true, vars:true */
-/*global MSApp:false */
+/*global MSApp:false, Windows:false */
 
 
 if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a Windows webview platform...
@@ -25,7 +25,7 @@ if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a 
     // Some nodes will have an "attributes" property which shadows the Node.prototype.attributes property
     //  and means we don't actually see the attributes of the Node (interestingly the VS debug console
     //  appears to suffer from the same issue).
-    //
+
     var Element_setAttribute = Object.getOwnPropertyDescriptor(Element.prototype, "setAttribute").value;
     var Element_removeAttribute = Object.getOwnPropertyDescriptor(Element.prototype, "removeAttribute").value;
     var HTMLElement_insertAdjacentHTMLPropertyDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "insertAdjacentHTML");
@@ -149,7 +149,7 @@ if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a 
             }
             if (cleaner.body) {
                 cleanedNodes = cleanedNodes.concat(Array.prototype.slice.call(document.adoptNode(cleaner.body).childNodes));
-            }  
+            }
         }
 
         return cleanedNodes;
@@ -175,12 +175,14 @@ if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a 
             configurable: propertyDescriptor.configurable,
         });
     }
+
     cleansePropertySetter("innerHTML", function (propertyDescriptor, target, elements) {
         empty(target);
         for (var i = 0, len = elements.length; i < len; i++) {
             target.appendChild(elements[i]);
         }
     });
+
     cleansePropertySetter("outerHTML", function (propertyDescriptor, target, elements) {
         for (var i = 0, len = elements.length; i < len; i++) {
             target.insertAdjacentElement("afterend", elements[i]);
@@ -234,5 +236,5 @@ if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a 
     } ;
 })();
 
-    
+
 }
