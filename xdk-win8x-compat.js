@@ -11,8 +11,8 @@
 /*global MSApp:false, Windows:false */
 
 
-if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a Windows webview platform...
 
+if( window.MSApp && MSApp.execUnsafeLocalFunction ) {   // only execute if on a Windows webview platform...
 
 /*
  * Copyright (c) 2014-2015, Microsoft Open Technologies, Inc. All rights reserved.
@@ -192,7 +192,11 @@ if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a 
 
 }());
 
+}
 
+
+
+if( window.MSApp && !window.alert ) {    // only define in a Windows webview...
 
 /*
  * Stack Exchange Inc User Contribution licensed under cc by-sa 3.0 with attribution required
@@ -235,6 +239,5 @@ if (window.MSApp && MSApp.execUnsafeLocalFunction) {    // only execute if on a 
         showPendingAlerts();
     } ;
 })();
-
 
 }
