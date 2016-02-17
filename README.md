@@ -47,7 +47,8 @@ Use of this shim may have a minor impact on your app's performance.
 
 > **NOTE:** You the dynamic content shim part of this file is not required for Windows 10 apps.
 
-See also: [Running Cordova Apps on Windows and Windows Phone 8.1 using Ionic, AngularJS, and other Frameworks](http://blogs.msdn.com/b/msdn_answers/archive/2015/02/10/running-cordova-apps-on-windows-and-windows-phone-8-1-using-ionic-angularjs-and-other-frameworks.aspx)
+See also: [Running Cordova Apps on Windows and Windows Phone 8.1 using Ionic, AngularJS, and 
+other Frameworks](http://blogs.msdn.com/b/msdn_answers/archive/2015/02/10/running-cordova-apps-on-windows-and-windows-phone-8-1-using-ionic-angularjs-and-other-frameworks.aspx)
 
 ## Windows 8.x Supplemental `alert()` Function
 
@@ -57,11 +58,14 @@ function is needed to supplement for the lack of `window.alert()` via the native
 ```JavaScript
 (new Windows.UI.Popups.MessageDialog("Content", "Title")).showAsync().done() ;
 ```
-Note that the this replacement `alert()` function:
+Note that this replacement `alert()` function:
 
 - Is not a blocking function like the familiar `window.alert()` function.
 - This implementation queues up multiple alerts to simulate the `alert()` blocking behavior.
 
 The replacement `alert()` function in this script will only be defined if a Windows webview
 is detected. It will not attempt to replace the `alert()` on other webviews (such as Android,
-Crosswalk and iOS). In those instances, the native `alert()` function will be used, as-is.
+Crosswalk and iOS). In those instances, the native `alert()` function will be used.
+
+The original source for this Windows `alert()` function [can be found on 
+StackOverflow](http://stackoverflow.com/a/13655351/2914328).
