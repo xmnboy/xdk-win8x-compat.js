@@ -7,6 +7,10 @@ This library is not guaranteed to resolve all problems, but will help with many.
 Include the `xdk-win8x-compat.js` file near the beginning of your app;
 ideally, before any other scripts are run.
 
+This file can be safely included in apps built for non-Windows platforms (such as
+Android, Crosswalk, iOS, etc.) It automatically detects the presence of the Windows
+platform and will only be used when a Windows webview platform is detected.
+
 ## JavaScript Dynamic Content Shim for Windows 8.x Store Apps
 
 Enables JavaScript libraries that manipulate the DOM to work in Windows 8.x
@@ -53,7 +57,7 @@ other Frameworks](http://blogs.msdn.com/b/msdn_answers/archive/2015/02/10/runnin
 ## Windows 8.x Supplemental `alert()` Function
 
 The Windows 8.x webview does not support the standard `alert()` method. Thus, a replacement
-function is needed to supplement for the lack of `window.alert()` via the native (to Windows)
+function is needed to supplement the lack of `window.alert()` via the (Windows) native
 `Windows.UI.Popups.MessageDialog()` function. That function is normally used as shown:
 ```JavaScript
 (new Windows.UI.Popups.MessageDialog("Content", "Title")).showAsync().done() ;
@@ -61,11 +65,12 @@ function is needed to supplement for the lack of `window.alert()` via the native
 Note that this replacement `alert()` function:
 
 - Is not a blocking function like the familiar `window.alert()` function.
-- This implementation queues up multiple alerts to simulate the `alert()` blocking behavior.
+- Queues up multiple alerts to simulate the `alert()` blocking behavior.
 
 The replacement `alert()` function in this script will only be defined if a Windows webview
-is detected. It will not attempt to replace the `alert()` on other webviews (such as Android,
-Crosswalk and iOS). In those instances, the native `alert()` function will be used.
+is detected. It will not attempt to replace the `alert()` functios that already exist in
+other webviews (such as Android, Crosswalk and iOS). In those instances, the native 
+`alert()` function will be retained.
 
 The original source for this Windows `alert()` function [can be found on 
 StackOverflow](http://stackoverflow.com/a/13655351/2914328).
