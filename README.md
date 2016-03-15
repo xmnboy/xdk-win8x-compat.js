@@ -4,7 +4,7 @@ This JavaScript library is a concatenation of two parts, described below. These 
 can be used to help you make your Intel XDK Cordova app work on the Windows 8.x platform.
 This library is not guaranteed to resolve all problems, but will help with many.
 
-Reference the `xdk-win8x-compat.js` file near the beginning of your app;
+Include the `xdk-win8x-compat.js` file near the beginning of your app;
 ideally, before any other scripts are run.
 
 ## JavaScript Dynamic Content Shim for Windows 8.x Store Apps
@@ -45,7 +45,7 @@ This shim relaxes the manner in which checks are performed.
 
 Use of this shim may have a minor impact on your app's performance.
 
-> **NOTE:** You the dynamic content shim part of this file is not required for Windows 10 apps.
+> **NOTE:** the `dynamic content shim` part of this file is not required for Windows 10 apps.
 
 See also: [Running Cordova Apps on Windows and Windows Phone 8.1 using Ionic, AngularJS, and 
 other Frameworks](http://blogs.msdn.com/b/msdn_answers/archive/2015/02/10/running-cordova-apps-on-windows-and-windows-phone-8-1-using-ionic-angularjs-and-other-frameworks.aspx)
