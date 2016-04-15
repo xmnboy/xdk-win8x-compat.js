@@ -4,9 +4,13 @@ This JavaScript library is a concatenation of two parts, described below. These 
 can be used to help you make your Intel XDK Cordova app work on the Windows 8.x platform.
 This library is not guaranteed to resolve all problems, but will help with many.
 
-Include the `xdk-win8x-compat.js` file near the beginning of your app;
-ideally, before any other scripts are run.
-
+Include the `xdk-win8x-compat.js` file near the beginning of your app; ideally, before 
+any other scripts are run. For example, assume you copy the file into a directory named
+`xdk` underneath the folder that contains your `index.html` file, then you would add a
+statement similar to the following somewhere in the beginning of your `index.html` file:
+```
+<script src="xdk/xdk-win8x-compat.js"></script>
+```
 This file can be safely included in apps built for non-Windows platforms (such as
 Android, Crosswalk, iOS, etc.) It automatically detects the presence of the Windows
 platform and will only be used when a Windows webview platform is detected.
