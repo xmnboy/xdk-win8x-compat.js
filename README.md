@@ -1,21 +1,27 @@
-# `xdk-win8x-compat.js`
+`xdk-win8x-compat.js`
+=====================
 
 This JavaScript library is a concatenation of two parts, described below. These two parts
 can be used to help you make your Intel XDK Cordova app work on the Windows 8.x platform.
 This library is not guaranteed to resolve all problems, but will help with many.
 
-## Installation
+Installation
+------------
+
 1. Add the following line in the HEAD tag of your index.html file before any other SCRIPT tags:
+
   ```
   <script src="xdk/xdk-win8x-compat.js"></script>
   ```
+  
 2. Copy the `xdk-win8x-compat.js` into the `xdk` subdirectory 
 
 Note: This file can be safely included in apps built for non-Windows platforms (such as
 Android, Crosswalk, iOS, etc.) It automatically detects the presence of the Windows
 platform and will only be used when a Windows webview platform is detected.
 
-## JavaScript Dynamic Content Shim for Windows 8.x Store Apps
+JavaScript Dynamic Content Shim for Windows 8.x Store Apps
+----------------------------------------------------------
 
 Enables JavaScript libraries that manipulate the DOM to work in Windows 8.x
 and Windows Phone 8.x webview apps. See <https://github.com/MSOpenTech/winstore-jscompat>
@@ -58,7 +64,8 @@ Use of this shim may have a minor impact on your app's performance.
 See also: [Running Cordova Apps on Windows and Windows Phone 8.1 using Ionic, AngularJS, and 
 other Frameworks](http://blogs.msdn.com/b/msdn_answers/archive/2015/02/10/running-cordova-apps-on-windows-and-windows-phone-8-1-using-ionic-angularjs-and-other-frameworks.aspx)
 
-## Windows 8.x Supplemental `alert()` Function
+Windows 8.x Supplemental `alert()` Function
+-------------------------------------------
 
 The Windows 8.x webview does not support the standard `alert()` method. Thus, a replacement
 function is needed to supplement the lack of `window.alert()` via the (Windows) native
