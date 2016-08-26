@@ -6,9 +6,9 @@ This library is not guaranteed to resolve all problems, but will help with many.
 
 ## Installation
 1. Add the following line in the HEAD tag of your index.html file before any other SCRIPT tags:
-```
-<script src="xdk/xdk-win8x-compat.js"></script>
-```
+  ```
+  <script src="xdk/xdk-win8x-compat.js"></script>
+  ```
 2. Copy the `xdk-win8x-compat.js` into the `xdk` subdirectory 
 
 Note: This file can be safely included in apps built for non-Windows platforms (such as
