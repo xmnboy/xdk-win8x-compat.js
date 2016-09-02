@@ -1,6 +1,6 @@
 /*
  * JavaScript Dynamic Content shim for Windows Store apps and window.alert() supplement.
- * ;paf; 2016-01-11, Only confirmed to work properly on Windows Phone 8.1 devices.
+ * ;paf; 2016-09-01, Confirmed to work on Windows 10 Universal, Windows 8.x and Windows Phone 8.1.
  *
  * Copyright © 2016, Paul Fischer, Intel Corporation. All rights reserved.
  * Licensed under the “BSD-3” license. <http://www.tldrlegal.com/l/bsd3>
@@ -11,8 +11,25 @@
 /*global MSApp:false, Windows:false */
 
 
+/*
+ * mechanism used to detect specific Windows webview versions
+ * https://github.com/apache/cordova-windows/blob/master/cordova-js-src/platform.js
 
-if( window.MSApp && MSApp.execUnsafeLocalFunction ) {   // only execute if on a Windows webview platform...
+    if (navigator.appVersion.indexOf('MSAppHost/3.0') !== -1) {
+        // Windows 10 UWP
+    } else if (navigator.appVersion.indexOf("Windows Phone 8.1;") !== -1) {
+        // windows phone 8.1 + Mobile IE 11
+    } else if (navigator.appVersion.indexOf("MSAppHost/2.0;") !== -1) {
+        // windows 8.1 + IE 11
+    } else {
+        // windows 8.0 + IE 10
+    }
+*/
+
+
+
+// only execute if in a Windows 8.x or Windows Phone 8.x webview...
+if( (window.MSApp && MSApp.execUnsafeLocalFunction) && (navigator.appVersion.indexOf('MSAppHost/3.0') === -1) ) {
 
 /*
  * Copyright (c) 2014-2015, Microsoft Open Technologies, Inc. All rights reserved.
@@ -196,7 +213,8 @@ if( window.MSApp && MSApp.execUnsafeLocalFunction ) {   // only execute if on a 
 
 
 
-if( window.MSApp && !window.alert ) {    // only define in a Windows webview...
+
+if( window.MSApp ) {    // define only in a Windows or Windows Phone webview...
 
 /*
  * Stack Exchange Inc User Contribution licensed under cc by-sa 3.0 with attribution required
@@ -230,7 +248,7 @@ if( window.MSApp && !window.alert ) {    // only define in a Windows webview...
         }) ;
     }
 
-    window.alert = function (message) {
+    window.alert = function(message) {
         if (window.console && window.console.log) {
             window.console.log(message);
         }
@@ -241,3 +259,31 @@ if( window.MSApp && !window.alert ) {    // only define in a Windows webview...
 })();
 
 }
+
+
+
+/*
+ * alternative for future consideration, but likely not needed
+ *
+
+// only define in a Windows 10 (UA) webview...
+if( (navigator.appVersion.indexOf('MSAppHost/3.0') !== -1) ) {
+
+// Needed to supplement for lack of window.alert() in a Windows webview.
+// http://www.mm1886.com/0511/windows-10-modern-universal-app-platform-uwp-messagebox-duplicate/
+
+(function () {
+    window.alert = function(message) {
+        if (window.console && window.console.log) {
+            window.console.log(message);
+        }
+
+//        var dialog = new Windows.UI.Popups.MessageDialog(message) ;
+        var dialog = new MessageDialog(message) ;
+        await dialog.ShowAsync() ;
+})();
+
+}
+
+ *
+ */
